@@ -1,6 +1,7 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -22,6 +23,7 @@ import { CURRENT_USER } from '../../core/constants/user.constants';
   imports: [
     CommonModule,
     FormsModule,
+    RouterModule,
     MatTableModule,
     MatButtonModule,
     MatIconModule,

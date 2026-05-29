@@ -1,1 +1,265 @@
-<p>quotations works!</p>
+<div class="quotations-container">
+  <div class="page-header">
+    <h1>Cotizaciones</h1>
+    <p>Gestiona las solicitudes de cotización para tus pedidos en proceso</p>
+  </div>
+
+  @if (loading()) {
+    <div class="loading-container">
+      <mat-spinner diameter="48" />
+    </div>
+  } @else if (orders().length === 0) {
+    <div class="empty-state">
+      <mat-icon>request_quote</mat-icon>
+      <p>No tienes pedidos asignados aún</p>
+    </div>
+  } @else {
+    <!-- DESKTOP -->
+    <div class="desktop-view">
+      <mat-card class="table-card">
+        <table mat-table [dataSource]="orders()" multiTemplateDataRows class="quotations-table">
+          <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef>Fecha</th>
+            <td mat-cell *matCellDef="let order">
+              {{ order.dateOrdered | date: 'dd/MM/yyyy HH:mm' }}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="customer">
+            <th mat-header-cell *matHeaderCellDef>Cliente</th>
+            <td mat-cell *matCellDef="let order">
+              <div class="customer-cell">
+                <div class="avatar">
+                  {{ getInitials(order.customer.name, order.customer.lastName) }}
+                </div>
+                <div>
+                  <p class="customer-name">
+                    {{ order.customer.name }} {{ order.customer.lastName }}
+                  </p>
+                  <p class="customer-email">{{ order.customer.email }}</p>
+                </div>
+              </div>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="materials">
+            <th mat-header-cell *matHeaderCellDef>Materiales</th>
+            <td mat-cell *matCellDef="let order">
+              <button
+                mat-stroked-button
+                class="btn-expand"
+                (click)="toggleExpand(order.id); $event.stopPropagation()"
+              >
+                <mat-icon>{{ isExpanded(order.id) ? 'expand_less' : 'expand_more' }}</mat-icon>
+                {{ order.orderDetails.length }} ítem{{ order.orderDetails.length !== 1 ? 's' : '' }}
+              </button>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="state">
+            <th mat-header-cell *matHeaderCellDef>Estado</th>
+            <td mat-cell *matCellDef="let order">
+              <span class="state-chip" [ngClass]="getStateClass(order.state)">
+                {{ getStateLabel(order.state) }}
+              </span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let order" class="actions-cell">
+              @if (order.state === 'EN_PROCESO') {
+                <button mat-raised-button class="btn-rfq" (click)="openRfqModal(order)">
+                  <mat-icon>send</mat-icon>
+                  Enviar RFQ
+                </button>
+              }
+              @if (order.state === 'EN_COTIZACION' || order.state === 'EN_EVALUACION_ECONOMICA') {
+                <button
+                  mat-stroked-button
+                  class="btn-view"
+                  [routerLink]="['/evaluations', order.id]"
+                >
+                  <mat-icon>compare_arrows</mat-icon>
+                  Ver cotizaciones
+                </button>
+              }
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns" class="order-row"></tr>
+
+          <ng-container matColumnDef="expandedDetail">
+            <td mat-cell *matCellDef="let order" [attr.colspan]="displayedColumns.length">
+              @if (isExpanded(order.id)) {
+                <div class="expanded-detail">
+                  <table class="detail-table">
+                    <thead>
+                      <tr>
+                        <th>Material</th>
+                        <th>Descripción</th>
+                        <th>Cantidad</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      @for (detail of order.orderDetails; track detail.id) {
+                        <tr>
+                          <td class="detail-name">{{ detail.material.name }}</td>
+                          <td class="detail-desc">{{ detail.material.description }}</td>
+                          <td>
+                            <span class="qty-badge">x{{ detail.quantity }}</span>
+                          </td>
+                        </tr>
+                      }
+                    </tbody>
+                  </table>
+                </div>
+              }
+            </td>
+          </ng-container>
+          <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="expand-row"></tr>
+        </table>
+      </mat-card>
+    </div>
+
+    <!-- MOBILE -->
+    <div class="mobile-view">
+      @for (order of orders(); track order.id) {
+        <mat-card class="order-card">
+          <div class="card-header">
+            <div class="avatar">
+              {{ getInitials(order.customer.name, order.customer.lastName) }}
+            </div>
+            <div class="card-header-info">
+              <p class="customer-name">{{ order.customer.name }} {{ order.customer.lastName }}</p>
+              <p class="customer-email">{{ order.customer.email }}</p>
+            </div>
+            <span class="card-date">{{ order.dateOrdered | date: 'dd/MM/yy' }}</span>
+          </div>
+
+          <div class="card-state-row">
+            <span class="state-chip" [ngClass]="getStateClass(order.state)">
+              {{ getStateLabel(order.state) }}
+            </span>
+            <button mat-stroked-button class="btn-expand-sm" (click)="toggleExpand(order.id)">
+              <mat-icon>{{ isExpanded(order.id) ? 'expand_less' : 'expand_more' }}</mat-icon>
+              {{ order.orderDetails.length }} ítems
+            </button>
+          </div>
+
+          @if (isExpanded(order.id)) {
+            <div class="card-items">
+              @for (detail of order.orderDetails; track detail.id) {
+                <div class="card-item-row">
+                  <span class="card-item-name">{{ detail.material.name }}</span>
+                  <span class="qty-badge">x{{ detail.quantity }}</span>
+                </div>
+              }
+            </div>
+          }
+
+          <div class="card-actions">
+            @if (order.state === 'EN_PROCESO') {
+              <button mat-raised-button class="btn-rfq btn-full" (click)="openRfqModal(order)">
+                <mat-icon>send</mat-icon>
+                Enviar RFQ
+              </button>
+            }
+            @if (order.state === 'EN_COTIZACION' || order.state === 'EN_EVALUACION_ECONOMICA') {
+              <button
+                mat-stroked-button
+                class="btn-view btn-full"
+                [routerLink]="['/evaluations', order.id]"
+              >
+                <mat-icon>compare_arrows</mat-icon>
+                Ver cotizaciones
+              </button>
+            }
+          </div>
+        </mat-card>
+      }
+    </div>
+  }
+</div>
+
+@if (showRfqModal()) {
+  <div class="modal-overlay" (click)="closeRfqModal()">
+    <div class="modal-panel" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2>Enviar solicitud de cotización</h2>
+        <button mat-icon-button (click)="closeRfqModal()">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+
+      @if (selectedOrder(); as order) {
+        <p class="modal-subtitle">
+          Pedido de <strong>{{ order.customer.name }} {{ order.customer.lastName }}</strong> —
+          {{ order.orderDetails.length }} material{{ order.orderDetails.length !== 1 ? 'es' : '' }}
+        </p>
+      }
+
+      @if (selectedSuppliers().length > 0) {
+        <div class="selected-chips">
+          @for (s of selectedSuppliers(); track s.id) {
+            <div class="supplier-chip">
+              <span>{{ s.name }}</span>
+              <button class="chip-remove" (click)="removeSupplier(s.id)">
+                <mat-icon>close</mat-icon>
+              </button>
+            </div>
+          }
+        </div>
+      }
+
+      <mat-form-field appearance="outline" class="search-field">
+        <mat-label>Buscar proveedor</mat-label>
+        <mat-icon matPrefix>search</mat-icon>
+        <input
+          matInput
+          [(ngModel)]="supplierSearch"
+          (input)="filterSuppliers()"
+          placeholder="Nombre o email..."
+          autocomplete="off"
+        />
+      </mat-form-field>
+
+      @if (filteredSuppliers().length > 0 && supplierSearch.length > 0) {
+        <div class="supplier-dropdown">
+          @for (s of filteredSuppliers(); track s.id) {
+            <div class="supplier-option" (click)="addSupplier(s)">
+              <div class="supplier-option-avatar">{{ s.name[0].toUpperCase() }}</div>
+              <div>
+                <p class="supplier-option-name">{{ s.name }}</p>
+                <p class="supplier-option-email">{{ s.email }}</p>
+              </div>
+              <mat-icon class="supplier-option-add">add_circle</mat-icon>
+            </div>
+          }
+        </div>
+      }
+
+      <div class="modal-footer">
+        <button mat-stroked-button (click)="closeRfqModal()">Cancelar</button>
+        <button
+          mat-raised-button
+          class="btn-rfq"
+          (click)="sendRfq()"
+          [disabled]="selectedSuppliers().length === 0 || sendingRfq()"
+        >
+          @if (sendingRfq()) {
+            <mat-spinner diameter="18" />
+          } @else {
+            <ng-container>
+              <mat-icon>send</mat-icon>
+              Enviar a {{ selectedSuppliers().length }} proveedor{{
+                selectedSuppliers().length !== 1 ? 'es' : ''
+              }}
+            </ng-container>
+          }
+        </button>
+      </div>
+    </div>
+  </div>
+}

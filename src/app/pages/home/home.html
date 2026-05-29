@@ -1,1 +1,41 @@
-<p>home works!</p>
+<div class="home-container">
+  <div class="page-header">
+    <h1>Bienvenido, {{ 'Edmundo' }}</h1>
+    <p>Resumen de tus pedidos activos</p>
+  </div>
+
+  @if (loading()) {
+    <div class="loading-container">
+      <mat-spinner diameter="48" />
+    </div>
+  } @else {
+    <div class="kpi-grid">
+      @for (kpi of kpis(); track kpi.label) {
+        <a class="kpi-card" [routerLink]="kpi.route">
+          <div class="kpi-icon" [ngClass]="kpi.colorClass">
+            <mat-icon>{{ kpi.icon }}</mat-icon>
+          </div>
+          <div class="kpi-body">
+            <span class="kpi-count">{{ kpi.count }}</span>
+            <span class="kpi-label">{{ kpi.label }}</span>
+          </div>
+          <mat-icon class="kpi-arrow">chevron_right</mat-icon>
+        </a>
+      }
+    </div>
+
+    <div class="quick-actions">
+      <h2>Acciones rápidas</h2>
+      <div class="actions-row">
+        <button mat-raised-button class="btn-action" [routerLink]="'/request-form'">
+          <mat-icon>add_circle</mat-icon>
+          Nueva solicitud
+        </button>
+        <button mat-stroked-button class="btn-action-outline" [routerLink]="'/requests'">
+          <mat-icon>inbox</mat-icon>
+          Pedidos pendientes
+        </button>
+      </div>
+    </div>
+  }
+</div>

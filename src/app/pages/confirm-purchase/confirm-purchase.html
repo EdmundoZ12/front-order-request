@@ -1,0 +1,38 @@
+<div class="public-page">
+  <div class="public-header">
+    <div class="logo"><span class="logo-car">CAR</span><span class="logo-max">max</span></div>
+    <p class="header-sub">Sistema de Compras</p>
+  </div>
+
+  <div class="public-content">
+    @if (loading()) {
+      <div class="state-container">
+        <mat-spinner diameter="48" />
+        <p>Procesando confirmación...</p>
+      </div>
+    } @else if (confirmed()) {
+      <div class="state-container">
+        <div class="icon-circle icon-success">
+          <mat-icon>check_circle</mat-icon>
+        </div>
+        <h2>¡Orden de compra confirmada!</h2>
+        <p>
+          Has confirmado la recepción de la orden de compra.<br />
+          El equipo de CarMax ha sido notificado y se pondrá en contacto contigo.
+        </p>
+        <div class="divider"></div>
+        <p class="footer-note">Puedes cerrar esta ventana.</p>
+      </div>
+    } @else {
+      <div class="state-container">
+        <div class="icon-circle icon-error">
+          <mat-icon>error_outline</mat-icon>
+        </div>
+        <h2>No se pudo confirmar</h2>
+        <p>{{ error() }}</p>
+        <div class="divider"></div>
+        <p class="footer-note">Si crees que esto es un error, contacta al equipo de CarMax.</p>
+      </div>
+    }
+  </div>
+</div>

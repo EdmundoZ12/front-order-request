@@ -23,7 +23,7 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/quotations/quotations').then((m) => m.Quotations),
       },
       {
-        path: 'evaluations',
+        path: 'evaluations/:orderId',
         loadComponent: () => import('./pages/evaluations/evaluations').then((m) => m.Evaluations),
       },
       {
@@ -35,6 +35,16 @@ export const routes: Routes = [
         loadComponent: () => import('./pages/request-form/request-form').then((m) => m.RequestForm),
       },
     ],
+  },
+  {
+    path: 'quotation-response/:token',
+    loadComponent: () =>
+      import('./pages/quotation-response/quotation-response').then((m) => m.QuotationResponse),
+  },
+  {
+    path: 'confirm-purchase/:confirmToken',
+    loadComponent: () =>
+      import('./pages/confirm-purchase/confirm-purchase').then((m) => m.ConfirmPurchase),
   },
   {
     path: '**',

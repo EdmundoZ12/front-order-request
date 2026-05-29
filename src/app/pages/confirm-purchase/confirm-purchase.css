@@ -1,0 +1,126 @@
+.public-page {
+  min-height: 100vh;
+  background: #f4f6f9;
+  display: flex;
+  flex-direction: column;
+}
+
+.public-header {
+  background: #002147;
+  padding: 18px 32px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.logo {
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+}
+
+.logo-car {
+  color: #fff;
+}
+.logo-max {
+  color: #f5c400;
+}
+
+.header-sub {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 13px;
+  margin: 0;
+  border-left: 1px solid rgba(255, 255, 255, 0.2);
+  padding-left: 16px;
+}
+
+.public-content {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 16px;
+}
+
+.state-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background: #fff;
+  border-radius: 20px;
+  padding: 48px 40px;
+  max-width: 480px;
+  width: 100%;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.state-container mat-spinner {
+  margin-bottom: 20px;
+}
+
+.state-container p {
+  font-size: 15px;
+  color: #555;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.icon-circle {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.icon-circle mat-icon {
+  font-size: 52px;
+  width: 52px;
+  height: 52px;
+}
+
+.icon-success {
+  background: #e8f5e9;
+}
+.icon-success mat-icon {
+  color: #2e7d32;
+}
+
+.icon-error {
+  background: #ffebee;
+}
+.icon-error mat-icon {
+  color: #c62828;
+}
+
+.state-container h2 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #002147;
+  margin: 0 0 12px;
+}
+
+.divider {
+  width: 48px;
+  height: 2px;
+  background: #e0e0e0;
+  border-radius: 2px;
+  margin: 20px 0;
+}
+
+.footer-note {
+  font-size: 13px !important;
+  color: #aaa !important;
+}
+
+@media (max-width: 600px) {
+  .state-container {
+    padding: 36px 24px;
+  }
+  .public-header {
+    padding: 14px 16px;
+  }
+}

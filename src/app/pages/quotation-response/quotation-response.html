@@ -1,0 +1,110 @@
+<div class="public-page">
+  <div class="public-header">
+    <div class="logo"><span class="logo-car">CAR</span><span class="logo-max">max</span></div>
+    <p class="header-sub">Sistema de Compras</p>
+  </div>
+
+  <div class="public-content">
+    @if (loading()) {
+      <div class="loading-container">
+        <mat-spinner diameter="48" />
+        <p>Cargando solicitud...</p>
+      </div>
+    } @else if (error()) {
+      <div class="error-state">
+        <mat-icon>error_outline</mat-icon>
+        <h2>Enlace no válido</h2>
+        <p>{{ error() }}</p>
+      </div>
+    } @else if (submitted()) {
+      <div class="success-state">
+        <div class="success-icon">
+          <mat-icon>check_circle</mat-icon>
+        </div>
+        <h2>¡Cotización enviada!</h2>
+        <p>
+          Tu respuesta fue recibida correctamente. Te contactaremos si tu propuesta es seleccionada.
+        </p>
+      </div>
+    } @else {
+      <div class="form-card">
+        <div class="form-header">
+          <mat-icon class="form-header-icon">request_quote</mat-icon>
+          <div>
+            <h2>Solicitud de cotización</h2>
+            @if (orderInfo(); as info) {
+              <p>
+                Proveedor: <strong>{{ info.supplierName }}</strong>
+              </p>
+            }
+          </div>
+        </div>
+
+        <p class="form-instructions">
+          Ingresa el precio unitario para cada material. Puedes agregar notas opcionales por ítem.
+        </p>
+
+        <div class="materials-list">
+          @for (mat of materials(); track mat.materialId; let i = $index) {
+            <div class="material-row">
+              <div class="material-info">
+                <span class="material-name">{{ mat.name }}</span>
+                <span class="material-desc">{{ mat.description }}</span>
+                <span class="material-qty"
+                  >Cantidad solicitada: <strong>{{ mat.quantity }}</strong></span
+                >
+              </div>
+              <div class="material-inputs">
+                <mat-form-field appearance="outline" class="price-field">
+                  <mat-label>Precio unitario</mat-label>
+                  <span matPrefix>$&nbsp;</span>
+                  <input
+                    matInput
+                    type="number"
+                    min="0"
+                    step="0.01"
+                    [(ngModel)]="mat.unitPrice"
+                    placeholder="0.00"
+                  />
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="notes-field">
+                  <mat-label>Notas (opcional)</mat-label>
+                  <input
+                    matInput
+                    [(ngModel)]="mat.notes"
+                    placeholder="Ej: incluye IVA, tiempo de entrega..."
+                  />
+                </mat-form-field>
+              </div>
+            </div>
+          }
+        </div>
+
+        @if (error()) {
+          <div class="submit-error">
+            <mat-icon>warning</mat-icon>
+            {{ error() }}
+          </div>
+        }
+
+        <div class="form-footer">
+          <button
+            mat-raised-button
+            class="btn-submit"
+            [disabled]="!isFormValid() || submitting()"
+            (click)="submit()"
+          >
+            @if (submitting()) {
+              <mat-spinner diameter="18" />
+            } @else {
+              <ng-container>
+                <mat-icon>send</mat-icon>
+                Enviar cotización
+              </ng-container>
+            }
+          </button>
+        </div>
+      </div>
+    }
+  </div>
+</div>

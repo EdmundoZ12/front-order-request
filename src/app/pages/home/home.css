@@ -1,0 +1,160 @@
+.home-container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.page-header {
+  margin-bottom: 28px;
+}
+
+.page-header h1 {
+  font-size: 26px;
+  font-weight: 500;
+  color: #002147;
+  margin: 0 0 4px;
+}
+
+.page-header p {
+  font-size: 14px;
+  color: #666;
+  margin: 0;
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  padding: 60px 0;
+}
+
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 36px;
+}
+
+.kpi-card {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: #fff;
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  text-decoration: none;
+  transition:
+    box-shadow 0.15s,
+    transform 0.15s;
+  cursor: pointer;
+}
+
+.kpi-card:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
+}
+
+.kpi-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.kpi-icon mat-icon {
+  font-size: 26px;
+  width: 26px;
+  height: 26px;
+}
+
+.kpi-proceso {
+  background: #e3f2fd;
+  color: #1565c0;
+}
+.kpi-cotizacion {
+  background: #fff8e1;
+  color: #f57f17;
+}
+.kpi-evaluacion {
+  background: #fce4ec;
+  color: #c62828;
+}
+.kpi-finalizado {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+.kpi-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.kpi-count {
+  font-size: 28px;
+  font-weight: 700;
+  color: #002147;
+  line-height: 1;
+}
+
+.kpi-label {
+  font-size: 13px;
+  color: #666;
+  font-weight: 500;
+}
+
+.kpi-arrow {
+  color: #ccc;
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+}
+
+.quick-actions h2 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #002147;
+  margin: 0 0 14px;
+}
+
+.actions-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.btn-action {
+  background-color: #002147 !important;
+  color: #f5c400 !important;
+  font-weight: 600;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+}
+
+.btn-action-outline {
+  border-color: #002147 !important;
+  color: #002147 !important;
+  font-weight: 600;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+}
+
+@media (max-width: 768px) {
+  .kpi-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .home-container {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 420px) {
+  .kpi-grid {
+    grid-template-columns: 1fr;
+  }
+}
