@@ -44,6 +44,7 @@ export class Evaluations implements OnInit {
   async ngOnInit() {
     this.orderId = this.route.snapshot.paramMap.get('orderId') ?? '';
     if (!this.orderId) return;
+
     this.loading.set(true);
     try {
       const data = await this.quotationService.getComparison(this.orderId);
@@ -64,6 +65,7 @@ export class Evaluations implements OnInit {
     const alreadySelected = current.find(
       (s) => s.materialId === materialId && s.quotationDetailId === quotationDetailId,
     );
+
     if (alreadySelected) {
       this.selections.set(current.filter((s) => s.materialId !== materialId));
     } else {
@@ -90,13 +92,6 @@ export class Evaluations implements OnInit {
 
   isBestPrice(price: number, prices: ComparisonResult['comparison'][0]['prices']): boolean {
     return price > 0 && price === this.getBestPrice(prices);
-  }
-
-  getPrice(
-    prices: ComparisonResult['comparison'][0]['prices'],
-    supplierId: string,
-  ): ComparisonResult['comparison'][0]['prices'][0] | null {
-    return prices.find((p) => p.supplierId === supplierId) ?? null;
   }
 
   async confirmSelections() {
@@ -132,6 +127,13 @@ export class Evaluations implements OnInit {
       RECHAZADO: 'sup-rechazado',
     };
     return map[state] ?? '';
+  }
+
+  getPrice(
+    prices: ComparisonResult['comparison'][0]['prices'],
+    supplierId: string,
+  ): ComparisonResult['comparison'][0]['prices'][0] | null {
+    return prices.find((p) => p.supplierId === supplierId) ?? null;
   }
 
   getSupplierStateLabel(state: string): string {
