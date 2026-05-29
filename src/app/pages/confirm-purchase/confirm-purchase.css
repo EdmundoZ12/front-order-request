@@ -19,18 +19,14 @@
   letter-spacing: -0.5px;
 }
 
-.logo-car {
-  color: #fff;
-}
-.logo-max {
-  color: #f5c400;
-}
+.logo-car { color: #fff; }
+.logo-max { color: #f5c400; }
 
 .header-sub {
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(255,255,255,0.6);
   font-size: 13px;
   margin: 0;
-  border-left: 1px solid rgba(255, 255, 255, 0.2);
+  border-left: 1px solid rgba(255,255,255,0.2);
   padding-left: 16px;
 }
 
@@ -52,12 +48,10 @@
   padding: 48px 40px;
   max-width: 480px;
   width: 100%;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
 }
 
-.state-container mat-spinner {
-  margin-bottom: 20px;
-}
+.state-container mat-spinner { margin-bottom: 20px; }
 
 .state-container p {
   font-size: 15px;
@@ -82,19 +76,11 @@
   height: 52px;
 }
 
-.icon-success {
-  background: #e8f5e9;
-}
-.icon-success mat-icon {
-  color: #2e7d32;
-}
+.icon-success { background: #e8f5e9; }
+.icon-success mat-icon { color: #2e7d32; }
 
-.icon-error {
-  background: #ffebee;
-}
-.icon-error mat-icon {
-  color: #c62828;
-}
+.icon-error { background: #ffebee; }
+.icon-error mat-icon { color: #c62828; }
 
 .state-container h2 {
   font-size: 22px;
@@ -117,10 +103,6 @@
 }
 
 @media (max-width: 600px) {
-  .state-container {
-    padding: 36px 24px;
-  }
-  .public-header {
-    padding: 14px 16px;
-  }
+  .state-container { padding: 36px 24px; }
+  .public-header { padding: 14px 16px; }
 }

@@ -48,10 +48,7 @@ export class QuotationResponse implements OnInit {
 
   async ngOnInit() {
     this.token = this.route.snapshot.paramMap.get('token') ?? '';
-    if (!this.token) {
-      this.error.set('Token inválido.');
-      return;
-    }
+    if (!this.token) { this.error.set('Token inválido.'); return; }
 
     this.loading.set(true);
     try {

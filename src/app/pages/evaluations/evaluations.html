@@ -56,24 +56,17 @@
                     <td
                       class="cell-price"
                       [class.cell-best]="price && isBestPrice(price.unitPrice, row.prices)"
-                      [class.cell-selected]="
-                        price && isSelected(row.material.id, price.quotationDetailId)
-                      "
+                      [class.cell-selected]="price && isSelected(row.material.id, price.quotationDetailId)"
                     >
                       @if (price && price.unitPrice > 0) {
                         <div class="price-cell-content">
                           <mat-checkbox
                             [checked]="isSelected(row.material.id, price.quotationDetailId)"
-                            (change)="
-                              toggleSelection(row.material.id, price.quotationDetailId, sup.id)
-                            "
+                            (change)="toggleSelection(row.material.id, price.quotationDetailId, sup.id)"
                             color="primary"
                           />
                           <div class="price-info">
-                            <span
-                              class="price-amount"
-                              [class.price-best]="isBestPrice(price.unitPrice, row.prices)"
-                            >
+                            <span class="price-amount" [class.price-best]="isBestPrice(price.unitPrice, row.prices)">
                               {{ formatPrice(price.unitPrice) }}
                             </span>
                             @if (isBestPrice(price.unitPrice, row.prices)) {
@@ -113,9 +106,7 @@
               @if (price && price.unitPrice > 0) {
                 <div
                   class="price-option"
-                  [class.price-option-selected]="
-                    isSelected(row.material.id, price.quotationDetailId)
-                  "
+                  [class.price-option-selected]="isSelected(row.material.id, price.quotationDetailId)"
                   [class.price-option-best]="isBestPrice(price.unitPrice, row.prices)"
                   (click)="toggleSelection(row.material.id, price.quotationDetailId, sup.id)"
                 >
@@ -140,10 +131,7 @@
     <!-- FOOTER CONFIRMAR -->
     <div class="footer-bar">
       <div class="footer-summary">
-        <span
-          >{{ selections().length }} de {{ comparison()!.comparison.length }} materiales
-          seleccionados</span
-        >
+        <span>{{ selections().length }} de {{ comparison()!.comparison.length }} materiales seleccionados</span>
         @if (!allMaterialsSelected()) {
           <span class="footer-hint">Selecciona un proveedor por cada material</span>
         }

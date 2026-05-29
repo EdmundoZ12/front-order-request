@@ -1,10 +1,13 @@
 <div class="public-page">
   <div class="public-header">
-    <div class="logo"><span class="logo-car">CAR</span><span class="logo-max">max</span></div>
+    <div class="logo">
+      <span class="logo-car">CAR</span><span class="logo-max">max</span>
+    </div>
     <p class="header-sub">Sistema de Compras</p>
   </div>
 
   <div class="public-content">
+
     @if (loading()) {
       <div class="loading-container">
         <mat-spinner diameter="48" />
@@ -22,9 +25,7 @@
           <mat-icon>check_circle</mat-icon>
         </div>
         <h2>¡Cotización enviada!</h2>
-        <p>
-          Tu respuesta fue recibida correctamente. Te contactaremos si tu propuesta es seleccionada.
-        </p>
+        <p>Tu respuesta fue recibida correctamente. Te contactaremos si tu propuesta es seleccionada.</p>
       </div>
     } @else {
       <div class="form-card">
@@ -33,9 +34,7 @@
           <div>
             <h2>Solicitud de cotización</h2>
             @if (orderInfo(); as info) {
-              <p>
-                Proveedor: <strong>{{ info.supplierName }}</strong>
-              </p>
+              <p>Proveedor: <strong>{{ info.supplierName }}</strong></p>
             }
           </div>
         </div>
@@ -50,9 +49,7 @@
               <div class="material-info">
                 <span class="material-name">{{ mat.name }}</span>
                 <span class="material-desc">{{ mat.description }}</span>
-                <span class="material-qty"
-                  >Cantidad solicitada: <strong>{{ mat.quantity }}</strong></span
-                >
+                <span class="material-qty">Cantidad solicitada: <strong>{{ mat.quantity }}</strong></span>
               </div>
               <div class="material-inputs">
                 <mat-form-field appearance="outline" class="price-field">
@@ -69,11 +66,7 @@
                 </mat-form-field>
                 <mat-form-field appearance="outline" class="notes-field">
                   <mat-label>Notas (opcional)</mat-label>
-                  <input
-                    matInput
-                    [(ngModel)]="mat.notes"
-                    placeholder="Ej: incluye IVA, tiempo de entrega..."
-                  />
+                  <input matInput [(ngModel)]="mat.notes" placeholder="Ej: incluye IVA, tiempo de entrega..." />
                 </mat-form-field>
               </div>
             </div>
@@ -106,5 +99,6 @@
         </div>
       </div>
     }
+
   </div>
 </div>
