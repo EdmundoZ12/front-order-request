@@ -9,7 +9,12 @@ import { QuotationService } from '../../core/services/quotation';
 @Component({
   selector: 'app-confirm-purchase',
   standalone: true,
-  imports: [CommonModule, MatButtonModule, MatIconModule, MatProgressSpinnerModule],
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatIconModule,
+    MatProgressSpinnerModule,
+  ],
   templateUrl: './confirm-purchase.html',
   styleUrl: './confirm-purchase.css',
 })
@@ -33,9 +38,7 @@ export class ConfirmPurchase implements OnInit {
       await this.quotationService.confirmPurchase(token);
       this.confirmed.set(true);
     } catch {
-      this.error.set(
-        'No se pudo confirmar la orden. El enlace puede haber expirado o ya fue utilizado.',
-      );
+      this.error.set('No se pudo confirmar la orden. El enlace puede haber expirado o ya fue utilizado.');
     } finally {
       this.loading.set(false);
     }
