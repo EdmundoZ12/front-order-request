@@ -1,6 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
+// ADD LINE COD ETO COMMIT
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet],
