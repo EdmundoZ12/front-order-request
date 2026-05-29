@@ -1,0 +1,102 @@
+mat-toolbar {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.nav-links {
+  display: flex;
+  gap: 4px;
+}
+
+.nav-links a {
+  font-size: 13px;
+  color: white !important;
+}
+
+.nav-links a mat-icon {
+  color: white !important;
+  font-size: 18px;
+}
+
+.active-link {
+  background: rgba(245, 196, 0, 0.2) !important;
+  border-radius: 4px;
+  color: #f5c400 !important;
+}
+
+.active-link mat-icon {
+  color: #f5c400 !important;
+}
+
+.btn-solicitar {
+  background-color: #f5c400 !important;
+  color: #002147 !important;
+  font-weight: 700;
+  margin-right: 12px;
+  margin-left: 12px;
+}
+
+.btn-solicitar mat-icon {
+  color: #002147 !important;
+}
+
+.mobile-menu-btn {
+  display: none !important;
+}
+
+.mobile-menu {
+  display: none;
+  flex-direction: column;
+  background: #002147;
+  padding: 8px 0;
+  position: sticky;
+  top: 64px;
+  z-index: 99;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.mobile-menu.open {
+  display: flex;
+}
+
+.mobile-menu a {
+  color: white !important;
+  padding: 10px 16px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.mobile-menu a mat-icon {
+  color: white !important;
+}
+
+.active-mobile {
+  background: rgba(245, 196, 0, 0.2) !important;
+  color: #f5c400 !important;
+}
+
+.btn-solicitar-mobile {
+  background-color: #f5c400 !important;
+  color: #002147 !important;
+  font-weight: 700;
+  margin: 8px 16px;
+  border-radius: 4px;
+}
+
+@media (max-width: 768px) {
+  .desktop-nav {
+    display: none !important;
+  }
+
+  .mobile-menu-btn {
+    display: inline-flex !important;
+  }
+}

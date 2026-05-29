@@ -1,0 +1,18 @@
+<div class="success-container">
+  <div class="icon-circle">
+    <mat-icon class="check-icon">check_circle</mat-icon>
+  </div>
+
+  <h2 class="title">¡Pedido confirmado!</h2>
+  <p class="subtitle">Tu pedido ha sido registrado exitosamente</p>
+
+  <div class="order-id">
+    <span class="label">Número de pedido</span>
+    <span class="value">{{ data.orderId.toString().slice(0, 8).toUpperCase() }}</span>
+  </div>
+
+  <button mat-raised-button class="btn-home" (click)="goHome()">
+    <mat-icon>home</mat-icon>
+    Volver al inicio
+  </button>
+</div>
